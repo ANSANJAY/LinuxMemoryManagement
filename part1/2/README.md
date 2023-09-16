@@ -1,24 +1,25 @@
-Virtual Address Space for 32-bit processors
-=============================================
+## Detailed Notes for Revision 📝
 
-On Linux, every memory address is virtual. They do not point to any address in the RAM directly.
+### Virtual Address Space for 32-bit Processors 🌌💻
 
-Whenever you access a memory location, a translation mechanism is performed in order to match the corresponding phyical memory.
+Virtual address space is the memory address system used by a program, and it is mapped to the physical address space by the operating system and hardware.
 
-On Linux Systems, each process owns a virtual address space.
+#### Key Insights 🔑
 
-Size of the virtual address space is 4GB on 32-bit systems (even on a system with physical memory less than 4 GB)
+- In **Linux**, every memory address is virtual, meaning it doesn't correspond directly to a physical location in RAM.
+- Every time a memory location is accessed, there's a translation mechanism that matches it to the right physical memory.
+- On Linux, each process has its own **virtual address space**.
+- The size of the virtual address space for 32-bit systems is **4GB**.
+  - This remains true even if the physical memory of the system is less than 4 GB.
+- This virtual address space is divided into:
+  - **User Space**: Where applications run.
+  - **Kernel Space**: Where the operating system kernel operates.
+- The split is determined by a kernel configuration parameter called **PAGE_OFFSET**.
+  - This configuration is commonly referred to as the **3G/1G Split**.
 
-Linux divides this virtual address space into 
+#### Visualization 🖼️
 
-	--->	an area for applications, called user space
-
-	--->	an area for kernel, called kernel space
-
-The split between the two is set by a kernel configuration parameter named PAGE_OFFSET.
-
-This is called 3G/1G Split.
-
+```plaintext
       .------------------------. 0xFFFFFFFF 
       |                        | (4 GB) 
       |    Kernel addresses    | 
@@ -34,22 +35,23 @@ This is called 3G/1G Split.
       |                        | 
       |                        | 
       '------------------------' 00000000
+```
 
+- **User Address Space**: Unique for each process. Each process operates in its sandbox, isolated from others.
+- **Kernel Address Space**: Consistent for all processes, as there's only one kernel.
 
-User address space is allocated per process, so that each process runs in a sandbox, separated from others.
+#### Why Share Kernel Address Space? 🤔
 
-The kernel address space is same for all process; there is only one kernel.
+- Each process frequently employs **system calls** which necessitate the kernel.
+- Mapping the kernel's virtual memory into each process's address space avoids the cost and time of constantly switching memory spaces when entering and exiting the kernel.
 
-Why kernel shares its address space  with every process
-=========================================================
+### Virtual Address Space in 64-bit Systems 🌌🖥️
 
-	--> Every single process uses system calls, which will involve the kernel
+In 64-bit systems, the memory map is vastly expanded, reflecting the larger addressable space of these systems.
 
-	--> Mapping the kernel's virtual memory address into each process virtual address space allows us to avoid the cost of switching out the memory address space on each entry to and exit from the kernel
+#### Visualization 🖼️
 
-64- bit memory map
-======================
-
+```plaintext
 ===========================================================================================
     Start addr    |   Offset   |     End addr     |  Size   | VM area description
 ===========================================================================================
@@ -62,5 +64,29 @@ __________________|____________|__________________|_________|___________________
                   |            |                  |         |
  ffff800000000000 | -128    TB | ffffffffffffffff |  128 TB | kernel-space virtual memory
 __________________|____________|__________________|_________|______________________________
+```
+This map can be further understood through the Documentation/x86/x86_64/mm.txt file in the Linux source code.
 
-Documentation/x86/x86_64/mm.txt
+### Questions & Answers 🤔💡
+
+1. **How does a 32-bit Linux system manage memory addresses?**
+   
+   📜 **Answer:** 
+   In a 32-bit Linux system, every memory address is virtual. There's a translation mechanism to match each virtual address to its corresponding physical memory.
+
+2. **What is the difference between user space and kernel space?**
+   
+   📜 **Answer:** 
+   User space is allocated for applications to run, while kernel space is reserved for the operating system kernel. The kernel space is consistent across all processes, whereas each process has its own distinct user space.
+
+3. **Why is the kernel's virtual memory mapped into each process's virtual address space?**
+   
+   📜 **Answer:** 
+   This setup is beneficial as every process frequently uses system calls involving the kernel. Having the kernel's virtual memory mapped to each process's address space prevents the time-consuming task of constantly switching memory spaces when accessing the kernel.
+
+4. **How does the virtual address space differ between 32-bit and 64-bit systems?**
+   
+   📜 **Answer:** 
+   32-bit systems have a virtual address space of 4GB, divided into user and kernel spaces. 64-bit systems, on the other hand, have a much larger addressable space, typically divided into user-space virtual memory, non-canonical memory, and kernel-space virtual memory.
+
+Make sure to grasp these concepts and their nuances to be well-prepared for discussions and queries about them. Best of luck with your studies! 📘🌟
