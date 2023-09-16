@@ -37,6 +37,65 @@ Virtual address space is the memory address system used by a program, and it is 
       '------------------------' 00000000
 ```
 
+
+----
+
+
+```lua
+                                  Kernel Virtual Address Space
+    +------------------------------------------------------------------------+
+    |                                                                        |
+    |                                                                        |
+    |                                                                        |
+    |                          HIGH Memory (HIGHMEM)                         |
+    |                  Mapped as needed, up to physical limit                |
+    |                  In your case, this is 128 MB                          |
+    |                                                                        |
+    |                                                                        |
+    +------------------------------------------------------------------------+
+    |                                                                        |
+    |                                                                        |
+    |                                                                        |
+    |                           Low Memory (LOWMEM)                          |
+    |   Direct and permanent mapping of the first part of physical memory    |
+    |                        Typically up to 896 MB                          |
+    |                                                                        |
+    |                                                                        |
+    |                                                                        |
+    +------------------------------------------------------------------------+
+    0 GB                                                                 1 GB
+
+                                          ||
+                                          ||
+                                          ||
+                                          \/
+                                  
+                                  Physical Memory Space
+    +------------------------------------------------------------------------+
+    |                                                                        |
+    |                                                                        |
+    |                                                                        |
+    |                         Unused or Additional RAM                       |
+    |            (If RAM exceeds the directly mapped `LOWMEM`)               |
+    |                                                                        |
+    |                                                                        |
+    |                                                                        |
+    +------------------------------------------------------------------------+
+    |                                                                        |
+    |                                                                        |
+    |                                                                        |
+    |                           Low Memory (Direct)                          |
+    |              Directly and permanently mapped to virtual space          |
+    |                        Typically up to 896 MB                          |
+    |                                                                        |
+    |                                                                        |
+    |                                                                        |
+    +------------------------------------------------------------------------+
+    0 MB                                                                 1024 MB (1 GB) (Or more, depending on system's total RAM)
+
+
+
+```
 - **User Address Space**: Unique for each process. Each process operates in its sandbox, isolated from others.
 - **Kernel Address Space**: Consistent for all processes, as there's only one kernel.
 
