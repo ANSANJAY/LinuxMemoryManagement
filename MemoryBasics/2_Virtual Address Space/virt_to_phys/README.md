@@ -4,8 +4,11 @@
 
 Memory addresses play a fundamental role in how systems operate. In Linux, these addresses can be broadly categorized into two types:
 
-1. **Virtual Addresses**: These are memory addresses as viewed by the kernel or a process. In other words, these addresses are an abstraction. Each process has its own set of virtual addresses, providing an isolated memory space.
-2. **Physical Addresses**: These refer to the actual locations in RAM where the data is stored. All the processes' virtual addresses, at some point, map back to physical addresses.
+1. **Virtual Addresses**: These are memory addresses as viewed by the kernel or a process. 
+   - In other words, these addresses are an abstraction. 
+   - Each process has its own set of virtual addresses, providing an isolated memory space.
+2. **Physical Addresses**: These refer to the actual locations in RAM where the data is stored. 
+- All the processes' virtual addresses, at some point, map back to physical addresses.
 
 #### Memory Management Unit (MMU) 🎛️🌐
 
@@ -13,7 +16,11 @@ The translation between virtual and physical addresses doesn't happen by magic�
 
 ### How Does The Mapping Work? 🗺️💡
 
-When a process or the kernel tries to access a memory location through a virtual address, the MMU looks up the corresponding physical address in its table. If a match is found, the MMU directs the system to the right spot in RAM. If there's no match, a **page fault** occurs, and the operating system needs to step in to handle it.
+When a process or the kernel tries to access a memory location through a virtual address, the MMU looks up the corresponding physical address in its table. 
+
+- If a match is found, the MMU directs the system to the right spot in RAM.
+
+`If there's no match, a **page fault** `occurs, and the operating system needs to step in to handle it.
 
 ### Useful Functions for Address Conversion 🛠️🔄
 
@@ -62,4 +69,51 @@ Sometimes, you might need to find out the Catalog Number (Virtual Address) for a
 - The MMU is like the librarian that knows how to find the actual spot on the shelf using the Catalog Number.
 - And finally, `virt_to_phys` and `phys_to_virt` are like the special tools that help you convert between Catalog Numbers and shelf spots.
 
-I hope this simplifies the concept for you! Best of luck in your interview! 🌟
+🌟
+
+---
+# Page Fault
+
+A page fault is an exception raised by computer hardware when a running program accesses a memory page that is mapped into the virtual address space, but not loaded into physical memory. Page faults are crucial to implementing virtual memory, paging, and swap space, enabling processes to run without having all of their pages in physical RAM.
+
+### Types of Page Faults
+
+1. **Minor Page Fault**: If the page is loaded in memory but not in the Translation Lookaside Buffer (TLB), a minor page fault occurs. The OS finds the physical address of the page in the page table and updates the TLB.
+
+2. **Major Page Fault**: If the page is not loaded in physical memory, a major page fault occurs. The OS has to retrieve the data from the swap space or a file system and load it into RAM, which is a much more time-consuming process.
+
+### What Happens During a Page Fault?
+
+When a page fault occurs, a sequence of steps is taken by the Operating System to resolve it:
+
+1. **Trap to the Kernel**: 
+   The CPU recognizes that a page fault has occurred and transfers execution to the kernel's page fault handler.
+
+2. **Save the Context**:
+   The kernel saves the context of the process that caused the fault in order to resume its execution once the fault has been dealt with.
+
+3. **Determine the Type of Page Fault**:
+   The kernel must determine whether the page fault was caused by an invalid memory reference (in case of a segmentation fault) or whether it needs to bring a page into memory.
+
+4. **Invalid Memory Reference**:
+   - If it’s an invalid reference (an attempt to access a non-existent address), the OS terminates the process, and a segmentation fault occurs.
+   - If the fault is due to trying to write to a read-only page, the OS typically terminates the process.
+   
+5. **Valid Memory Reference**:
+   - If the page fault was caused by a legitimate memory reference, the OS must bring the referenced page into physical memory. This involves several sub-steps:
+     a. **Find the Location**: Determine where the data is stored (swap space, file system, etc.).
+     b. **Find a Free Page Frame**: Find a free page in physical memory. If there is no free frame, select a page for replacement using a page replacement algorithm.
+     c. **Page In**: Load the page into the free frame. If a page was replaced, write it back to disk if it was modified.
+     d. **Update Page Tables**: Update the process's page table to reflect the changes.
+     e. **Return to the Program**: Restore the process's context and resume its execution from the instruction that caused the page fault.
+
+6. **Handle Copy-on-Write** (if applicable):
+   If the OS uses copy-on-write and the fault was caused by a write to a shared page, the OS might create a private copy of the page for the writing process.
+
+7. **Resume Execution**:
+   The OS resumes the execution of the process from the instruction that caused the page fault. If the fault was handled successfully, the instruction is re-executed and proceeds as if the page had always been in memory.
+
+### Final Note:
+
+Page faults are crucial to efficient memory management within an OS, allowing systems to run larger programs and support multitasking by swapping pages in and out of physical memory transparently to applications. This mechanism, while providing enormous flexibility and enabling features like process isolation, can also be a source of performance issues if an application causes too many major page faults, leading to frequent disk access and slow operation, a situation known as "thrashing".
+
