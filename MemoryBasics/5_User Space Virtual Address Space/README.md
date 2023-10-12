@@ -4,16 +4,18 @@
 
 1. **Text Segment (Code)**:
    - Contains the executable code.
-   - Usually, this is set to be read-only to prevent a program from accidentally modifying its own instructions.
+   - Usually, this is set to be *read-only* to prevent a program from accidentally modifying its own instructions.
 
 2. **Initialized Data Segment**:
-   - Contains global and static variables that are initialized in the source code.
+   - Contains 
+   - **global and static variables** that are initialized in the source code.
    - For instance, a global variable `int i=5;` would be stored here.
    - Values are set up by the `exec` system call based on values stored in the program file.
 
 3. **Uninitialized Data Segment (BSS)**:
-   - Contains global and static variables that are not initialized in the source code.
-   - This segment is filled with zeroes before the program starts executing, ensuring a consistent state.
+   - Contains 
+   - **global and static variables** that are not initialized in the source code.
+   - This segment is **filled with zeroes** before the program starts executing, ensuring a consistent state.
    - It doesn't occupy any space in the program file; the `exec` system call simply allocates memory and zeroes it out.
 
 4. **Heap**:
@@ -22,9 +24,12 @@
    - Shrinks when memory is deallocated, e.g., via `free()`.
 
 5. **Stack**:
-   - Used for function call management.
-   - Stores local variables, return addresses, and does the bookkeeping for function calls and returns.
-   - Grows downwards (towards lower addresses).
+   - Used for **function call management.**
+   - Stores 
+      - local variables, 
+      - return addresses, 
+      - and does the bookkeeping for function calls and returns.
+   - **Grows downwards (towards lower addresses)**
    - It's automatically resized by the system, but there are limits to prevent excessive consumption of memory.
 
 6. **Command-Line Arguments and Environment Variables**:
@@ -55,4 +60,4 @@
 
    📜 **Answer:** If the heap (growing upwards) and the stack (growing downwards) meet, it can lead to a memory allocation failure or even a crash (segmentation fault). To avoid this, modern systems often have mechanisms to detect such scenarios and handle them gracefully, but it's still a situation to be avoided in software design.
 
-Remember, understanding the layout and behavior of memory in processes is crucial for effective programming, debugging, and system administration. Stay curious! 🌟📚
+ Stay curious! 🌟📚
