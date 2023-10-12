@@ -1,20 +1,25 @@
-## Detailed Notes on Low and High Memory 📚💼
+# Low and High Memory 📚💼
 
 ### Kernel's Address Space 🖥️📍
 
-Linux kernel operates in its own virtual address space distinct from user mode processes. This separation ensures both security and stability, as user processes can't directly access kernel structures or data.
+Linux kernel operates in its own virtual address space distinct from user mode processes. 
+- This separation ensures both security and stability, as user processes can't directly access kernel structures or data.
 
 ### Kernel's Virtual Address Mappings 🗺️📌
 
-For the kernel to operate on physical memory (e.g., for caching, memory allocation, etc.), it must first map this physical memory into its own virtual address space. This mapping ensures that every physical byte of RAM has a corresponding virtual address in the kernel's address space.
+For the kernel to operate on physical memory (e.g., for caching, memory allocation, etc.), it must first map this physical memory into its own virtual address space. 
+
+- This mapping ensures that every physical byte of RAM has a corresponding virtual address in the kernel's address space.
 
 ### Limitations on x86 🚫🔍
 
 On x86 architectures with a 32-bit address space and a 3G/1G split:
 
-- The kernel's virtual address space is restricted to 1 GB.
+- The **kernel's virtual address space is restricted to 1 GB**.
   
-- Of this, only a portion can be used for mapping physical memory, as some of the address space is used by the kernel code itself and its data structures.
+- Of this, 
+  - only a portion can be used for mapping physical memory, 
+  - as some of the address space is used by the kernel code itself and its data structures.
 
 - Because of this, the Linux kernel on these systems can only natively handle slightly less than 1 GB of physical memory.
 
@@ -63,13 +68,13 @@ On x86 architectures with a 32-bit address space and a 3G/1G split:
 ### Dividing the Kernel's Address Space: LOWMEM and HIGHMEM 🌍🌌
 
 - **LOWMEM (Low Memory)**:
-  - Refers to the first 896 MB of the kernel's virtual address space.
-  - Memory in LOWMEM is permanently mapped into the kernel's address space, meaning its virtual addresses are always valid.
+  - Refers to the first **896 MB** of the kernel's virtual address space.
+  - Memory in LOWMEM is **permanently mapped into the kernel's address space**, meaning its virtual addresses are always valid.
   - Kernel operations mostly occur in this region because it's quickly accessible.
   
 - **HIGHMEM (High Memory)**:
-  - The remaining portion, roughly the top 128 MB.
-  - Physical pages mapped into HIGHMEM are not permanently mapped into the kernel's address space. Instead, they are temporarily mapped when needed.
+   - The remaining portion, roughly the top **128 MB**.
+  - **Physical pages** mapped into HIGHMEM are not permanently mapped into the kernel's address space. Instead, they are temporarily mapped when needed.
   - HIGHMEM exists because of the need to support systems with more than the naturally addressable amount of memory (more than the ~1 GB limitation).
   - Operations on HIGHMEM are slightly more costly in terms of time because of the need to set up temporary mappings.
 
@@ -89,4 +94,4 @@ LOWMEM is always mapped, making it the fastest memory for the kernel to access. 
 
    📜 **Answer:** No, 64-bit systems have a vastly larger address space. This means they can address a much larger amount of physical memory without resorting to mechanisms like HIGHMEM. HIGHMEM is a workaround specifically tailored for 32-bit systems with more than ~1 GB of RAM.
 
-Always keep in mind that the architecture of a system, including how its memory is managed, impacts the performance, flexibility, and scalability of the system. Happy learning! 🌟📘
+ Happy learning! 🌟📘
