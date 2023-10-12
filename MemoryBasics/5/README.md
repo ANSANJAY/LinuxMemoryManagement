@@ -1,4 +1,4 @@
-## Detailed Notes on User Space Virtual Address Space 📚💼
+# User Space Virtual Address Space 📚💼
 
 ### Overview of User Space Memory Segments 📂🖊️
 

@@ -1,12 +1,12 @@
-## Detailed Notes on Kernel Memory Management 📖✨
-
-### Kernel Memory Overview 🖥️🧠
+## Kernel Memory Overview 🖥️🧠📖✨
 
 - **Characteristics**:
-  - **Not Demand-Paged**: Kernel memory allocations, such as those made with `kmalloc()`, always have corresponding physical memory. In other words, when the kernel requests memory, it gets actual, tangible memory, not just a promise of memory.
-  - **Persistence**: Unlike some user-space memory, kernel memory is never discarded or paged out to secondary storage. It remains resident in physical memory.
+  - **Not Demand-Paged**: Kernel memory allocations, such as those made with `kmalloc()`, always have corresponding physical memory. 
+  - In other words, when the kernel requests memory, it gets actual, tangible memory, not just a promise of memory.
+  - **Persistence**: Unlike some user-space memory, **kernel memory is never discarded** or paged out to secondary storage. 
+  - It remains resident in physical memory.
   
-### User Space Memory Management 🚀💾
+## User Space Memory Management 🚀💾
 
 - **Lazy Allocation Strategy**: 
   - Linux uses a "lazy" strategy when allocating memory for user space applications.
