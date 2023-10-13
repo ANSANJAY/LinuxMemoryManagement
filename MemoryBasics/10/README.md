@@ -5,6 +5,7 @@ kmalloc is a kernel memory allocation function, such as malloc() in user space
 
 Memory returned by kmalloc is contiguous in physical memory and in virtual memory:
 
+
 			virtual memory    physical memory
 			----------        --------
 		   - - -|	 |------- |	 |
@@ -21,6 +22,7 @@ Memory returned by kmalloc is contiguous in physical memory and in virtual memor
 			|        |        |      |
 			|        |        |      |
 			----------        --------
+
 
 kmalloc allocator is the general and higher-level memory allocator in the kernel, and relies on SLAB Allocator
 
