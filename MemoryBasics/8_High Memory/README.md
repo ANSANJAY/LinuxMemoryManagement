@@ -1,7 +1,7 @@
-### 1. Detailed Explanation 📘
+## High Memory 📘
 
 - **High Memory Region**: 🚀
-  - Defined as the top 128 MB of the kernel address space.
+  - Defined as the top **128 MB** of the kernel address space.
   - Serves as a temporary mapping space for the kernel.
   
 - **Usage and Necessity**: 🗂️
@@ -37,5 +37,4 @@
   
 - **64-bit Systems**: 🎉
   - Visualize a massive warehouse (2^64 address range) where you can walk (access memory) endlessly without needing a stool (high memory concept) because everything is within an easy reach due to the enormous space.
-
-Hope this helps in your revision! Feel free to ask for any more clarification or topics.🌟
+🌟
