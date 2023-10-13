@@ -1,22 +1,7 @@
 # Linux Memory Management
 Delve into the intricate world of Linux memory management with this course. Learn about the physical &amp; virtual address spaces, kernel-user spaces, and the art of memory allocation. Dive deep into kmalloc, vmalloc, and the mysteries of /proc/buddyinfo. Unravel the complexities of the Linux Kernel memory landscape.
 
-# Linux Memory Management Course 🖥️📚
-
-## Description 📜
-
-Dive deep into the world of Linux memory management with this repository. Here, you'll find extensive resources and examples to help you understand the intricacies of memory in the Linux Kernel.
-
 ## What will you learn from this repo? 🚀
-
-# Linux Kernel Memory Management Explorations 🐧🧠
-
-Your go-to repository for diving deep into the world of memory management in the Linux Kernel, packed with practical examples and thorough READMEs for each concept! 🚀📘
-
-## Structure 🗂️
-
-### [MemoryBasics](/MemoryBasics)
-Begin with the foundational concepts of memory management. From physical and virtual address spaces to user space, dive into the underpinnings of how Linux handles memory! 🏠🌟
 
 # Linux Kernel Memory Management Explorations 🐧🧠
 
@@ -50,21 +35,6 @@ Advance your understanding with deeper insights. 🚀🧙
 - [Virtual Kernel Memory Layout](/MemoryAdvanced/17_Virtual%20Kernel%20Memory%20Layout)
 - [View Memory Layout](/MemoryAdvanced/18_view_memory_layout)
 
-## License 📜
-
-Licensed under GPL. See [LICENSE](/LICENSE) for details!
-
-## Note 📝
-
-Explore, clone, and contribute! 🤝🌐
-
-Happy Learning! 🎉📚
-
-
-## License 📜
-
-This project is licensed under GPL - see the [LICENSE](/LICENSE) file for details!
-
 ## Note 📝
 
 Feel free to explore, clone, and contribute to enhance the knowledge shared and explore even deeper aspects of kernel memory management! 🤝🌐
@@ -82,10 +52,5 @@ Happy Learning! 🎉📚
 - `vmalloc`
 - `vfree`
 
-## Commands used in this repo: ⌨️
-
-- `qemu-system-x86`
-
----
 
 Feel free to contribute and enhance the knowledge base! Happy Learning! 🎉
